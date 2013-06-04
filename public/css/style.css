@@ -1,0 +1,17 @@
+/* Put your CSS here */
+html, body {
+    margin: 20px;
+}
+
+h3.report-header {
+	text-align: center;
+}
+
+span.right,
+td.right {
+	text-align: right;
+}
+
+.position-sign {
+	margin-top: 60px;
+}

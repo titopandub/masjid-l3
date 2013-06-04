@@ -1,0 +1,67 @@
+html, body {
+    margin: 20px;
+}
+/* Header Style */
+h3.report-header {
+	text-align: center;
+}
+h5 {
+	padding: 0;
+	margin: 0;
+}
+
+/* Table Style */
+table {
+	border-collapse: collapse;
+	min-width: 595px;
+}
+table tr td {
+	vertical-align: top;
+}
+.no-border {
+	border-left: none !important;
+	width: 4px !important;
+}
+.table tr td,
+.table tr th {
+	border: 1px solid black;
+	padding: 2px 5px;
+	height: 20px;
+}
+
+/* Footer Style */
+.position-sign {
+	margin-top: 60px;
+}
+.position-sign div {
+	text-decoration: underline;
+}
+.position-sign .half,
+.name-sign .half {
+	float: left;
+	width: 250px;
+}
+.position-sign .one-third,
+.name-sign .one-third {
+	float: left;
+	width: 33%;
+}
+.position-sign .two-third,
+.name-sign .two-third {
+	float: left;
+	width: 66%;
+}
+
+/* Misc Style*/
+/*span.pull-right,
+tr td.pull-right {
+	float: right;
+}*/
+.money {
+	width: 125px;
+}
+
+.pull-right,
+.row-fluid [class*="span"].pull-right {
+	float: right;
+}

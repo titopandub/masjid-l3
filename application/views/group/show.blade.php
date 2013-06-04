@@ -1,0 +1,1 @@
+This is the /Users/titopandub/Projects/Web/mesjid/application/views/group/show.blade.php view
