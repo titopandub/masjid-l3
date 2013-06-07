@@ -10,7 +10,7 @@ class Dashboards_Controller extends Base_Controller {
         {
             $group = Auth::user()->group()->first();
             $group_modules = $group->modules()->pivot()->get();
-            echo var_dump($group_modules);
+            return var_dump($group_modules);
         }
 
     }    
