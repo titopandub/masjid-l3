@@ -10,9 +10,10 @@ class Dashboards_Controller extends Base_Controller {
         {
             $group = Auth::user()->group()->first();
             $group_modules = $group->modules()->pivot()->get();
-            return var_dump($group_modules);
+            $data = array('group_modules' => $group_modules, );
+            return View::make('dashboard.index', $data);
         }
-
+        return View::make('dashboard.index');
     }    
 
 	public function post_index()

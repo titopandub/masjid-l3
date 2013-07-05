@@ -2,7 +2,7 @@
 
 class Expense extends Eloquent 
 {
-	public $includes = array('category', 'account');
+	// public $includes = array('category', 'account');
 	
 	public function category()
 	{

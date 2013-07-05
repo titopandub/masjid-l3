@@ -21,15 +21,15 @@ class Accounts_Controller extends Base_Controller {
         }
         $week = AppHelper::range_week($date);
         $account = Account::find($account_id);
-        $donations = $account->donations()
-                                ->where_between('donation_date', $week['start'], $week['end'])
-                                ->get();
-        $expenses = $account->expenses()
-                                ->where_between('expense_date', $week['start'], $week['end'])
-                                ->get();
-        $transactions = $account->transactions()
-                                ->where_between('date', $week['start'], $week['end'])
-                                ->get();
+        $donations = Donation::where_between('donation_date', $week['start'], $week['end'])
+                        ->where('account_id', '=', $account_id)
+                        ->get();
+        $expenses = Expense::where_between('expense_date', $week['start'], $week['end'])
+                        ->where('account_id', '=', $account_id)
+                        ->get();
+        $transactions = Transaction::where_between('date', $week['start'], $week['end'])
+                        ->where('account_id', '=', $account_id)
+                        ->get();
         if (isset($donations[0])) {
             $last_week_transaction = Transaction::earlier_than($transactions[0])->where('account_id', '=', $account_id)->first();
         } else {
@@ -42,9 +42,10 @@ class Accounts_Controller extends Base_Controller {
             $last_week_balance = $last_week_transaction->balance->balance_amount;
         }
 
-        $end_transaction = $account->transactions_desc()
-                                    ->where_between('date', $week['start'], $week['end'])
-                                    ->first();
+        $end_transaction = Transaction::where_between('date', $week['start'], $week['end'])
+                                ->order_by('date', 'desc')
+                                ->order_by('id', 'desc')
+                                ->first();
         if (is_null($end_transaction)) {
             $end_balance = 0;
         } else {

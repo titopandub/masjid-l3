@@ -132,5 +132,21 @@ Route::filter('csrf', function()
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::to('login')->with('notification', 'Please login!');;
+	if (Auth::guest()) return Redirect::to('login')->with('notification', 'Please login!');
+});
+
+Route::filter('check_permissions', function()
+{
+	$route = Router::route(Request::method(), URI::current());
+	$uses = $route->action['uses'];
+	list($controller, $action) = explode('@', $uses);
+
+	$module = Module::where('controller', '=', $controller)->only('id');
+	$group_id = Auth::user()->group_id;
+	$check = Group::find($group_id)->modules()
+						->where('module_id', '=', $module)
+						->first();
+	if ($check == null) {
+		return View::make('error.forbidden');
+	}
 });

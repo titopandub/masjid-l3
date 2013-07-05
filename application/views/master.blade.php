@@ -7,15 +7,15 @@
 	echo HTML::style('css/normalize.css'); 
 	echo HTML::style('css/vendors/jquery-ui/jquery-ui-1.8.16.custom.css');
 	echo HTML::style('css/vendors/bootstrap/bootstrap.css');
-	echo HTML::style('css/vendors/bootstrap/bootstrap-responsive.css');
 	echo HTML::style('css/vendors/datatables/dataTables.bootstrap.css');
 	echo HTML::style('css/style.css');
+	echo HTML::style('css/vendors/bootstrap/bootstrap-responsive.css');
 	echo HTML::style('css/print.css', array('media' => 'print'));
 	?>
 </head>
 <body>
 	<div class="navbar">
-		<div class="navbar-inner">
+		<div class="navbar-inner navbar-fixed-top">
 			<a class="brand" href="#">Masjid Al-Muttaqin</a>
 			<ul class="nav">
 				<li><a href="#">Home</a></li>
