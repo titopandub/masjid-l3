@@ -29,7 +29,7 @@ class Users_Controller extends Base_Controller {
 		);
 
 		if (Auth::attempt($userdata)) {
-			return Redirect::to_action('dashboards@index');
+			return Redirect::to_action('reports@index');
 		} else {
 			return Redirect::to_action('users@login')
 								->with('notification', 'Incorrect Username or Password!!');

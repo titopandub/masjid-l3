@@ -11,41 +11,52 @@ class Accounts_Controller extends Base_Controller {
     }
 
     // use this params => $date, $account_id = 1, $periode = 'weekly'
-    public function get_report($account_id = 1, $periode = 'weekly')
+    public function get_report()
     {
-        $date = Input::get('date');
+        $account_id = Input::get('account_id');
+        $periode    = Input::get('periode', 'weekly');
+        $date       = Input::get('date');
+        $today      = strtotime(date('Y-m-d'));
         if (is_null($date) || empty($date)) {
-            $today = strtotime(date('Y-m-d'));
             $last_week = $today - (3600 * 24 * 7);
             $date = date('Y-m-d', $last_week);
         }
-        $week = AppHelper::range_week($date);
+        if ( 'daily' == $periode ) {
+            $range = array('start' => $date, 'end' => $date);
+        } else if ( 'weekly' == $periode ) {
+            $range = AppHelper::range_week($date);    
+        } else if ( 'monthly' == $periode ) {
+            $range = AppHelper::range_month($date);
+        }
         $account = Account::find($account_id);
-        $donations = Donation::where_between('donation_date', $week['start'], $week['end'])
-                        ->where('account_id', '=', $account_id)
-                        ->get();
-        $expenses = Expense::where_between('expense_date', $week['start'], $week['end'])
-                        ->where('account_id', '=', $account_id)
-                        ->get();
-        $transactions = Transaction::where_between('date', $week['start'], $week['end'])
-                        ->where('account_id', '=', $account_id)
-                        ->get();
+        $donations = Donation::where_between('donation_date', $range['start'], $range['end'])
+                             ->where_account_id($account_id)
+                             ->get();
+        $expenses = Expense::where_between('expense_date', $range['start'], $range['end'])
+                           ->where_account_id($account_id)
+                           ->get();
+        $transactions = Transaction::where_between('date', $range['start'], $range['end'])
+                                   ->where_account_id($account_id)
+                                   ->get();
         if (isset($donations[0])) {
-            $last_week_transaction = Transaction::earlier_than($transactions[0])->where('account_id', '=', $account_id)->first();
+            $last_transaction = Transaction::earlier_than($transactions[0])
+                                           ->where_account_id($account_id)
+                                           ->first();
         } else {
-            $last_week_transaction = null;
+            $last_transaction = Transaction::earlier_than_date($range['start']);
         }
         
-        if (is_null($last_week_transaction)) {
-            $last_week_balance = 0;
+        if (is_null($last_transaction)) {
+            $last_transaction_balance = 0;
         } else {
-            $last_week_balance = $last_week_transaction->balance->balance_amount;
+            $last_transaction_balance = $last_transaction->balance->balance_amount;
         }
 
-        $end_transaction = Transaction::where_between('date', $week['start'], $week['end'])
-                                ->order_by('date', 'desc')
-                                ->order_by('id', 'desc')
-                                ->first();
+        $end_transaction = Transaction::where_between('date', $range['start'], $range['end'])
+                                      ->where_account_id($account_id)
+                                      ->order_by('date', 'desc')
+                                      ->order_by('id', 'desc')
+                                      ->first();
         if (is_null($end_transaction)) {
             $end_balance = 0;
         } else {
@@ -53,12 +64,13 @@ class Accounts_Controller extends Base_Controller {
         }
         
         $data = array(
-                    'week' => $week,
+                    'range' => $range,
                     'account' => $account,
                     'donations' => $donations, 
                     'expenses' => $expenses,
-                    'last_week_balance' => $last_week_balance,
+                    'last_transaction_balance' => $last_transaction_balance,
                     'end_balance' => $end_balance,
+                    'periode' => $periode,
                     );
         return View::make('account.report', $data);
         // echo var_dump($end_balance);

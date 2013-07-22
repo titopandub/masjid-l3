@@ -6,7 +6,7 @@ class Expenses_Controller extends Base_Controller {
 
 	public function get_index()
     {
-        $data['expenses'] = Expense::order_by('id', 'desc')->get();
+        $data['expenses'] = Expense::expenses()->get();
         return View::make('expense.index', $data);
     }    
 

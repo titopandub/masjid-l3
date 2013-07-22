@@ -32,8 +32,11 @@ class Transaction extends Eloquent
 
 	public function delete()
 	{
-		parent::delete();
-		return $this->handle_after_destroy();
+		$this->handle_before_destroy();
+		$result = parent::delete();
+		$this->update_later_balance();
+
+		return $result;
 	}
 
 	public static function earlier_than($transaction)
@@ -48,6 +51,17 @@ class Transaction extends Eloquent
 							$query->where('id', '<', $transaction_id);
 						});
 						$query->or_where('date', '<', $current_date);
+					})
+					->order_by('date', 'desc')
+					->order_by('id', 'desc');
+	}
+
+	public static function earlier_than_date($date)
+	{
+		return static::where(function ($query) use ($date)
+					{
+						$query->where('date', '=',$date);
+						$query->or_where('date', '<', $date);
 					})
 					->order_by('date', 'desc')
 					->order_by('id', 'desc');
@@ -147,14 +161,13 @@ class Transaction extends Eloquent
 		}
 	}
 
-	public function handle_after_destroy()
+	public function handle_before_destroy()
 	{
 		$transaction_id = $this->id;
 		if (! is_null($transaction_id)) {
 			$b = Balance::where_transaction_id($transaction_id);
 			return $b->delete();
 		}
-		$this->update_later_balance();
 	}
 
 }

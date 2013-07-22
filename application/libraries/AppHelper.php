@@ -14,8 +14,8 @@ class AppHelper {
 	public static function range_month($datestr) {
 		date_default_timezone_set(date_default_timezone_get());
 		$dt = strtotime($datestr);
-		$res['start'] = date('Y-m-d', strtotime('first day of this month', $dt));
-		$res['end'] = date('Y-m-d', strtotime('last day of this month', $dt));
+		$res['start'] = date('Y-m-01', $dt);
+		$res['end'] = date('Y-m-t', $dt);
 		return $res;
 	}
 

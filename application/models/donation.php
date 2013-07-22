@@ -24,6 +24,13 @@ class Donation extends Eloquent
 		return $this->has_one('Transaction');
 	}
 
+	public static function donations()
+	{
+		return static::with(array('account','category', 'transaction', 'transaction.balance'))
+                     ->order_by('id', 'desc')
+                     ->order_by('donation_date', 'desc');
+	}
+
 	public function save()
 	{
 		parent::save();

@@ -6,7 +6,7 @@ class Donations_Controller extends Base_Controller {
 
 	public function get_index()
     {
-        $data['donations'] = Donation::order_by('id', 'desc')->order_by('donation_date', 'desc')->get();
+        $data['donations'] = Donation::donations()->get();
         return View::make('donation.index', $data);
     }    
 

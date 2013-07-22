@@ -6,7 +6,9 @@ class Reports_Controller extends Base_Controller {
 
 	public function get_index()
     {
-        return View::make('report.index');
+        $accounts = Account::lists('name', 'id');
+        $data = array('accounts' => $accounts, );
+        return View::make('report.index', $data);
 
     }    
 

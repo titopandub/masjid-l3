@@ -41,7 +41,10 @@ Route::controller(Controller::detect());
 
 Route::any('login/(:all?)',         'users@login');
 Route::any('logout',                'users@logout');
-Route::get('/', array('as' => 'dashboard_index', 'uses' => 'dashboards@index'));
+Route::get('/', function()
+{
+	return Redirect::to_action('reports@index');
+});
 
 Route::group(array('before' => 'auth'), function ()
 {

@@ -3,16 +3,22 @@
 	$total_donation = 0;
 	$total_expense = 0;
 	$yesterday = 3600 * 24;
-	$last_week_date = date('Y-m-d', strtotime($week['start']) - $yesterday );
+	$last_week_date = date('Y-m-d', strtotime($range['start']) - $yesterday );
+	$tomorrow = 3600 * 24;
+	$date_tomorrow = strtotime($range['start']) + $tomorrow;
 	?>
 @section('container')
 <button class="btn pull-right print">Print</button>
 <div class="clearfix"></div>
 <div id="main-container">
 	<h3 class="report-header">Laporan Keuangan<br>{{ $account->name }} Al-Muttaqin</h3>
-
-	<h4>Periode: {{ AppHelper::date($week['start'], 'j F Y') }} - {{ AppHelper::date($week['end'], 'j F Y') }}</h4>
-
+	@if ( 'weekly' == $periode )
+	<h4>Periode: {{ AppHelper::date($range['start'], 'j F Y') }} - {{ AppHelper::date($range['end'], 'j F Y') }}</h4>
+	@elseif ( 'daily' == $periode )
+	<h4>Tanggal: {{ AppHelper::date($range['start'], 'j F Y') }} </h4>
+	@elseif ( 'monthly' == $periode )
+	<h4>Periode: {{ AppHelper::date($range['start'], 'j F Y') }} - {{ AppHelper::date($range['end'], 'j F Y') }}</h4>
+	@endif
 	<table class="table table-bordered">
 		<thead>
 			<tr>
@@ -26,8 +32,8 @@
 			</tr>
 			<tr>
 				<td>Saldo Tanggal {{ AppHelper::date($last_week_date, 'j F Y') }}</td>
-				<td class="money">{{ AppHelper::idr_format($last_week_balance) }}</td>
-				<?php $total_donation += $last_week_balance; ?>
+				<td class="money">{{ AppHelper::idr_format($last_transaction_balance) }}</td>
+				<?php $total_donation += $last_transaction_balance; ?>
 			</tr>
 		@forelse ($donations as $donation)
 			<tr>
@@ -71,22 +77,29 @@
 				<td colspan="2"></td>
 			</tr>
 			<tr>
-				<td><strong class="pull-right">Saldo Akhir, {{ AppHelper::date($week['end'], 'j F Y') }}</strong></td>
+				<td><strong class="pull-right">Saldo Akhir, {{ AppHelper::date($range['end'], 'j F Y') }}</strong></td>
 				<td class="money">{{ AppHelper::idr_format($end_balance) }}</td>
 			</tr>
 		</tbody>
 	</table>
 
 	<br>
-
-	<div>Dilaporkan, {{ AppHelper::date($week['end'], 'j F Y') }}</div>
+	@if ( 'daily' == $periode )
+	<div>Dilaporkan, {{ AppHelper::date($date_tomorrow, 'j F Y') }}</div>
+	@elseif ( 'weekly' == $periode )
+	<div>Dilaporkan, {{ AppHelper::date($range['end'], 'j F Y') }}</div>
+	@endif
 	<div class="position-sign row-fluid">
 		<div class="two-third span8">Sekretaris</div>
 		<div class="one-third span4">Bendahara</div>
 	</div>
 	<div class="name-sign">
 		<div class="two-third span8">Tito Pandu B.</div>
+		@if ( 'daily' == $periode )
+		<div class="one-third span4">Mustahal</div>
+		@elseif ( 'weekly' == $periode )
 		<div class="one-third span4">Bambang</div>
+		@endif
 	</div>
 </div>
 

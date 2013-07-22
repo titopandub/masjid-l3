@@ -29,9 +29,17 @@ class Groups_Controller extends Base_Controller {
         $all = (array) $content;
         // return var_dump($all['group_id']);
         $group = Group::find($all['group_id']);
-        $permissions = implode(',', $all['permissions']);
         $module_id = $all['module_id'];
-        $new_group_module = $group->modules()->attach($module_id, array('permissions' => $permissions));
+        if (isset($all['permissions'])) {
+            if (is_array($all['permissions'])) {
+                $permissions = implode(',', $all['permissions']);
+            } else {
+                $permissions = $all['permissions'];
+            }
+            $new_group_module = $group->modules()->attach($module_id, array('permissions' => $permissions));
+        } else {
+            $new_group_module = $group->modules()->attach($module_id);
+        }
         if ($new_group_module) {
             return Response::json(array('response' => true));
         } else {
