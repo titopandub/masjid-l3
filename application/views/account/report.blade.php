@@ -95,7 +95,7 @@
 	</div>
 	<div class="name-sign">
 		<div class="two-third span8">Tito Pandu B.</div>
-		@if ( 'daily' == $periode )
+		@if ( 'daily' == $periode || 4 == $account->id )
 		<div class="one-third span4">Mustahal</div>
 		@elseif ( 'weekly' == $periode )
 		<div class="one-third span4">Bambang</div>
