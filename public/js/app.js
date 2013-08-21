@@ -20,6 +20,7 @@ $(function () {
 		"bInfo": false,
 		"bAutoWidth" : false,
 		"bRetrieve" : true,
+		"aaSorting": [[ 0, "desc" ]],
 	});
 	
 	var tableModule = $('#table-module').dataTable({
