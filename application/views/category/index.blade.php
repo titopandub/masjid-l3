@@ -2,27 +2,31 @@
 
 @section('container')
 
+<h2>List of categories</h2>
+
+{{ HTML::link_to_action('categories@new', 'Create a New Category', array(), array('class' => 'btn btn-primary create-btn')) }}
+
 <table class="table table-bordered table-js">
 	<thead>
 		<tr>
+			<th>ID</th>
 			<th>Category Name</th>
-			<th>Action</th>
+			<th class="action">Action</th>
 		</tr>
 	</thead>
 	<tbody>
 	@forelse ($categories as $category)
 		<tr>
+			<td>{{ $category->id }}</td>
 			<td>{{ $category->name }}</td>
 			<td>
-				{{ HTML::link_to_action('categories@edit', 'Edit', array($category->id), array('class' => 'btn')) }}
-				{{ HTML::link_to_action('categories@destroy', 'Delete', array($category->id), array('class' => 'btn', 'data-method' => 'delete')) }}
+				{{ HTML::link_to_action('categories@edit', 'Edit', array($category->id), array('class' => 'btn btn-warning')) }}
+				{{ HTML::link_to_action('categories@destroy', 'Delete', array($category->id), array('class' => 'btn btn-danger', 'data-method' => 'delete')) }}
 			</td>
 		</tr>
 	@empty
 	@endforelse
 	</tbody>
 </table>
-
-{{ HTML::link_to_action('categories@new', 'New', array(), array('class' => 'btn')) }}
 
 @endsection

@@ -20,3 +20,21 @@ td.right {
 	margin-top: 60px;
 }
 
+.create-btn {
+	margin-bottom: 20px;
+}
+
+#delete-dialog {
+	display: none;
+}
+
+table.table .account-name,
+table.table .amount,
+table.table .date {
+	width: 110px;
+}
+
+table.table .action,
+table.table .category {
+	width: 130px;
+}
