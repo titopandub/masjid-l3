@@ -19,7 +19,7 @@
 	@elseif ( 'monthly' == $periode )
 	<h4>Periode: {{ AppHelper::date($range['start'], 'j F Y') }} - {{ AppHelper::date($range['end'], 'j F Y') }}</h4>
 	@endif
-	<table class="table table-bordered">
+	<table class="table table-bordered table-report">
 		<thead>
 			<tr>
 				<th>Keterangan</th>
@@ -95,7 +95,7 @@
 	</div>
 	<div class="name-sign">
 		<div class="two-third span8">Tito Pandu B.</div>
-		@if ( 'daily' == $periode || 4 == $account->id )
+		@if ( 'daily' == $periode || 'monthly' == $periode || 4 == $account->id )
 		<div class="one-third span4">Mustahal</div>
 		@elseif ( 'weekly' == $periode )
 		<div class="one-third span4">Bambang</div>
@@ -117,6 +117,8 @@
 			pageTitle: $('h3.report-header').val() + '.html'
 		});
 	});
+
+	$(function() { splitTable($(".table-report"), 1280); });
 </script>
 @endsection
 

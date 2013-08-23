@@ -9,7 +9,7 @@
 <table class="table table-bordered table-js">
 	<thead>
 		<tr>
-			<th>ID</th>
+			<th class="table-id">ID</th>
 			<th>Account Name</th>
 			<th class="action">Action</th>
 		</tr>
@@ -17,7 +17,7 @@
 	<tbody>
 	@forelse ($accounts as $account)
 		<tr>
-			<td>{{ $account->id }}</td>
+			<td class="table-id">{{ $account->id }}</td>
 			<td>{{ $account->name }}</td>
 			<td>
 				{{ HTML::link_to_action('accounts@edit', 'Edit', array($account->id), array('class' => 'btn btn-warning')) }}

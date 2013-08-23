@@ -10,7 +10,7 @@
 	<thead>
 		<tr>
 			<th class="date">Date</th>
-			<th>ID</th>
+			<th class="table-id">ID</th>
 			<th class="account-name">Account</th>
 			<th>Remark</th>
 			<th class="amount">Amount</th>
@@ -21,13 +21,13 @@
 	<tbody>
 	@forelse ($donations as $donation)
 		<tr>
-			<td>{{ date('Y-m-d', strtotime($donation->donation_date)) }}</td>
-			<td>{{ $donation->id }}</td>
-			<td>{{ $donation->account->name }}</td>
+			<td class="date">{{ date('Y-m-d', strtotime($donation->donation_date)) }}</td>
+			<td class="table-id">{{ $donation->id }}</td>
+			<td class="account-name">{{ $donation->account->name }}</td>
 			<td>{{ $donation->remark }}</td>
-			<td>{{ AppHelper::idr_format($donation->amount) }}</td>
-			<td>{{ $donation->category->name }}</td>
-			<td>
+			<td class="amount">{{ AppHelper::idr_format($donation->amount) }}</td>
+			<td class="category">{{ $donation->category->name }}</td>
+			<td class="action">
 				{{ HTML::link_to_action('donations@edit', 'Edit', array($donation->id), array('class' => 'btn btn-warning')) }}
 				{{ HTML::link_to_action('donations@destroy', 'Delete', array($donation->id), array('class' => 'btn btn-danger', 'data-method' => 'delete')) }}
 			</td>

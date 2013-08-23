@@ -38,3 +38,7 @@ table.table .action,
 table.table .category {
 	width: 130px;
 }
+
+table.table .table-id {
+    width: 50px;
+}

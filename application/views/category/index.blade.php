@@ -9,7 +9,7 @@
 <table class="table table-bordered table-js">
 	<thead>
 		<tr>
-			<th>ID</th>
+			<th class="table-id">ID</th>
 			<th>Category Name</th>
 			<th class="action">Action</th>
 		</tr>
@@ -17,9 +17,9 @@
 	<tbody>
 	@forelse ($categories as $category)
 		<tr>
-			<td>{{ $category->id }}</td>
+			<td class="table-id">{{ $category->id }}</td>
 			<td>{{ $category->name }}</td>
-			<td>
+			<td class="action">
 				{{ HTML::link_to_action('categories@edit', 'Edit', array($category->id), array('class' => 'btn btn-warning')) }}
 				{{ HTML::link_to_action('categories@destroy', 'Delete', array($category->id), array('class' => 'btn btn-danger', 'data-method' => 'delete')) }}
 			</td>
