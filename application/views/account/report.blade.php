@@ -99,6 +99,8 @@
 		<div class="one-third span4">Mustahal</div>
 		@elseif ( 'weekly' == $periode )
 		<div class="one-third span4">Bambang</div>
+		@else
+		<div class="one-third span4">Mustahal</div>
 		@endif
 	</div>
 </div>

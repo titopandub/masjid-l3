@@ -1,7 +1,7 @@
 @layout('master')
 
 @section('container')
-<form id="report-jumat" method="GET" action="http://mesjid.local.dev:8888/accounts/report/" class="form-horizontal">
+<form id="report-jumat" method="GET" action="/accounts/report/" class="form-horizontal">
 	<div class="control-group">
 		{{ Form::label('account_id', 'Account', array('class' => 'control-label')) }}
 		<div class="controls">
@@ -12,7 +12,7 @@
 	<div class="control-group">
 		{{ Form::label('periode', 'Periode', array('class' => 'control-label')) }}
 		<div class="controls">
-			{{ Form::select('periode', array('daily' => 'Daily', 'weekly' => 'Weekly', 'monthly' => 'Monthly'), array()) }}
+			{{ Form::select('periode', array('daily' => 'Daily', 'weekly' => 'Weekly', 'monthly' => 'Monthly', 'custom' => 'Custom'), array()) }}
 		</div>
 	</div>
 	
@@ -20,6 +20,13 @@
 		{{ Form::label('date', 'Report Date', array('class' => 'control-label')) }}
 		<div class="controls">
 			{{ Form::text('date', date('Y-m-d'), array('class' => 'datepick')) }}
+		</div>
+	</div>
+	
+	<div class="control-group">
+		{{ Form::label('end_date', 'To Date', array('class' => 'control-label')) }}
+		<div class="controls">
+			{{ Form::text('end_date', date('Y-m-d'), array('class' => 'datepick')) }}
 		</div>
 	</div>
 	

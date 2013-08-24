@@ -16,6 +16,7 @@ class Accounts_Controller extends Base_Controller {
         $account_id = Input::get('account_id');
         $periode    = Input::get('periode', 'weekly');
         $date       = Input::get('date');
+        $end_date   = Input::get('end_date');
         $today      = strtotime(date('Y-m-d'));
         if (is_null($date) || empty($date)) {
             $last_week = $today - (3600 * 24 * 7);
@@ -27,6 +28,8 @@ class Accounts_Controller extends Base_Controller {
             $range = AppHelper::range_week($date);    
         } else if ( 'monthly' == $periode ) {
             $range = AppHelper::range_month($date);
+        } else if ( 'custom' == $periode ) {
+            $range = array('start' => $date, 'end' => $end_date);
         }
         $account = Account::find($account_id);
         $donations = Donation::where_between('donation_date', $range['start'], $range['end'])
