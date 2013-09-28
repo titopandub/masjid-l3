@@ -41,7 +41,7 @@ class Accounts_Controller extends Base_Controller {
         $transactions = Transaction::where_between('date', $range['start'], $range['end'])
                                    ->where_account_id($account_id)
                                    ->get();
-        if (isset($donations[0])) {
+        if (isset($donations[0]) || isset($expenses[0])) {
             $last_transaction = Transaction::earlier_than($transactions[0])
                                            ->where_account_id($account_id)
                                            ->first();

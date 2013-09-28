@@ -12,11 +12,9 @@
 <div class="clearfix"></div>
 <div id="main-container">
 	<h3 class="report-header">Laporan Keuangan<br>{{ $account->name }} Al-Muttaqin</h3>
-	@if ( 'weekly' == $periode )
-	<h4>Periode: {{ AppHelper::date($range['start'], 'j F Y') }} - {{ AppHelper::date($range['end'], 'j F Y') }}</h4>
-	@elseif ( 'daily' == $periode )
+	@if ( 'daily' == $periode )
 	<h4>Tanggal: {{ AppHelper::date($range['start'], 'j F Y') }} </h4>
-	@elseif ( 'monthly' == $periode )
+	@else
 	<h4>Periode: {{ AppHelper::date($range['start'], 'j F Y') }} - {{ AppHelper::date($range['end'], 'j F Y') }}</h4>
 	@endif
 	<table class="table table-bordered table-report">
@@ -86,7 +84,7 @@
 	<br>
 	@if ( 'daily' == $periode )
 	<div>Dilaporkan, {{ AppHelper::date($date_tomorrow, 'j F Y') }}</div>
-	@elseif ( 'weekly' == $periode )
+	@else
 	<div>Dilaporkan, {{ AppHelper::date($range['end'], 'j F Y') }}</div>
 	@endif
 	<div class="position-sign row-fluid">
