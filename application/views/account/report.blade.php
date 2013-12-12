@@ -96,7 +96,7 @@
 		@if ( 'daily' == $periode || 'monthly' == $periode || 4 == $account->id )
 		<div class="one-third span4">Mustahal</div>
 		@elseif ( 'weekly' == $periode )
-		<div class="one-third span4">Bambang</div>
+		<div class="one-third span4">Mustahal</div>
 		@else
 		<div class="one-third span4">Mustahal</div>
 		@endif

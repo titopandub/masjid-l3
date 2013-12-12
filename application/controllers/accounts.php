@@ -34,9 +34,11 @@ class Accounts_Controller extends Base_Controller {
         $account = Account::find($account_id);
         $donations = Donation::where_between('donation_date', $range['start'], $range['end'])
                              ->where_account_id($account_id)
+                             ->order_by('donation_date', 'asc')
                              ->get();
         $expenses = Expense::where_between('expense_date', $range['start'], $range['end'])
                            ->where_account_id($account_id)
+                           ->order_by('expense_date', 'asc')
                            ->get();
         $transactions = Transaction::where_between('date', $range['start'], $range['end'])
                                    ->where_account_id($account_id)
@@ -46,9 +48,11 @@ class Accounts_Controller extends Base_Controller {
                                            ->where_account_id($account_id)
                                            ->first();
         } else {
-            $last_transaction = Transaction::earlier_than_date($range['start']);
+            $last_transaction = Transaction::earlier_than_date($range['start'])
+                                           ->where_account_id($account_id)
+                                           ->first();
         }
-        
+        // var_dump($last_transaction); die;
         if (is_null($last_transaction)) {
             $last_transaction_balance = 0;
         } else {
