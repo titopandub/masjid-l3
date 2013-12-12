@@ -25,6 +25,20 @@
 </div>
 
 <div class="control-group">
+	{{ Form::label('secretary', 'Secretary', array('class' => 'control-label')) }}
+	<div class="controls">
+		{{ Form::text('secretary', $new ? '' : $account->secretary, array('placeholder' => 'Secretary')) }}
+	</div>
+</div>
+
+<div class="control-group">
+	{{ Form::label('treasurer', 'Treasurer', array('class' => 'control-label')) }}
+	<div class="controls">
+		{{ Form::text('treasurer', $new ? '' : $account->treasurer, array('placeholder' => 'Treasurer')) }}
+	</div>
+</div>
+
+<div class="control-group">
 	<div class="controls">
 		<div class="btn-group">
 			{{ Form::submit('Save', array('class' => 'btn')) }}

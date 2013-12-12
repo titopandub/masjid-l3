@@ -141,6 +141,8 @@ class Accounts_Controller extends Base_Controller {
         $account->name = Input::get('name');
         $account->account_number = Input::get('account_number');
         $account->account_type = Input::get('account_type');
+        $account->secretary = Input::get('secretary');
+        $account->treasurer = Input::get('treasurer');
         $account->save();
 
         return Redirect::to_action('accounts@index');

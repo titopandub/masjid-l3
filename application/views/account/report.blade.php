@@ -92,14 +92,8 @@
 		<div class="one-third span4">Bendahara</div>
 	</div>
 	<div class="name-sign">
-		<div class="two-third span8">Tito Pandu B.</div>
-		@if ( 'daily' == $periode || 'monthly' == $periode || 4 == $account->id )
-		<div class="one-third span4">Mustahal</div>
-		@elseif ( 'weekly' == $periode )
-		<div class="one-third span4">Mustahal</div>
-		@else
-		<div class="one-third span4">Mustahal</div>
-		@endif
+		<div class="two-third span8">{{ $account->secretary }}</div>
+		<div class="one-third span4">{{ $account->treasurer }}</div>
 	</div>
 </div>
 
