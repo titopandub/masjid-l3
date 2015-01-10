@@ -69,9 +69,9 @@ return array(
 
 		'mysql' => array(
 			'driver'   => 'mysql',
-			'host'     => 'localhost',
+			'host'     => '127.0.0.1',
 			'port'     => '8889',
-			'database' => 'mesjid',
+			'database' => 'dkmkeuangan',
 			'username' => 'masjid_user',
 			'password' => 'X4B7cmfLm5VwhREG',
 			'charset'  => 'utf8',

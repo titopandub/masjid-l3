@@ -39,6 +39,13 @@
 </div>
 
 <div class="control-group">
+	{{ Form::label('announcement', 'Announcement', array('class' => 'control-label')) }}
+	<div class="controls">
+		{{ Form::textarea('announcement', $new ? '' : $account->announcement, array('placeholder' => 'Announcement')) }}
+	</div>
+</div>
+
+<div class="control-group">
 	<div class="controls">
 		<div class="btn-group">
 			{{ Form::submit('Save', array('class' => 'btn')) }}

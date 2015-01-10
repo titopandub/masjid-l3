@@ -26,12 +26,12 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td colspan="2"><strong>Pemasukan</strong></td>
-			</tr>
-			<tr>
 				<td>Saldo Tanggal {{ AppHelper::date($last_week_date, 'j F Y') }}</td>
 				<td class="money">{{ AppHelper::idr_format($last_transaction_balance) }}</td>
-				<?php $total_donation += $last_transaction_balance; ?>
+				<?php $last_transaction_balance; ?>
+			</tr>
+			<tr>
+				<td colspan="2"><strong>Pemasukan</strong></td>
 			</tr>
 		@forelse ($donations as $donation)
 			<tr>
@@ -94,6 +94,13 @@
 	<div class="name-sign">
 		<div class="two-third span8">{{ $account->secretary }}</div>
 		<div class="one-third span4">{{ $account->treasurer }}</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="notes">
+		<?php
+		Bundle::start('sparkdown');
+		?>
+		{{ Sparkdown\Markdown($account->announcement); }}
 	</div>
 </div>
 

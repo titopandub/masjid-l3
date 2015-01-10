@@ -42,3 +42,8 @@ table.table .category {
 table.table .table-id {
     width: 50px;
 }
+
+.notes {
+	font-size: 120%;
+	margin-top: 20px;
+}

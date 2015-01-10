@@ -1,6 +1,6 @@
 <?php
 
-class Add_Columns_On_Accounts_Table {
+class Add_Column_On_Accounts_Table {
 
 	/**
 	 * Make changes to the database.
@@ -9,10 +9,9 @@ class Add_Columns_On_Accounts_Table {
 	 */
 	public function up()
 	{
-		Schema::table('accounts', function($table) 
+		Schema::table('accounts', function($table)
 		{
-			$table->string('secretary');
-			$table->string('treasurer');
+			$table->text('announcement');
 		});
 	}
 
@@ -24,7 +23,7 @@ class Add_Columns_On_Accounts_Table {
 	public function down()
 	{
 		Schema::table('accounts', function($table) {
-			$table->drop_column(array('permissions', 'treasurer'));
+			$table->drop_column(array('announcement'));
 		});
 	}
 

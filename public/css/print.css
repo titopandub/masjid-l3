@@ -65,3 +65,7 @@ tr td.pull-right {
 .row-fluid [class*="span"].pull-right {
 	float: right;
 }
+
+.notes {
+	margin-top: 20px;
+}

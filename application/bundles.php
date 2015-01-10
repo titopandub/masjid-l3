@@ -38,6 +38,7 @@ return array(
 	'docs' => array('handles' => 'docs'),
 	'bob',
 	'form-base-model' => array( 'auto' => true ),
+	'sparkdown',
 	// 'sentry' => array('auto' => true),
 	
 );

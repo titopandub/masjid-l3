@@ -37,7 +37,12 @@
 				@if(Auth::check())
 				<ul class="nav nav-tabs nav-stacked">
 					@forelse ($navigation_modules as $module)
-						<li>{{ HTML::link_to_action($module->controller . "@index", $module->name) }}</li>
+						@if (Request::route()->controller == $module->controller)
+							<?php $class_name = "active"; ?>
+						@else
+							<?php $class_name = ""; ?>
+						@endif
+						<li class="{{ $class_name }}">{{ HTML::link_to_action($module->controller . "@index", $module->name) }}</li>
 					@empty
 					<li>Nothing</li>
 					@endforelse

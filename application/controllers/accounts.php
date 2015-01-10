@@ -42,6 +42,7 @@ class Accounts_Controller extends Base_Controller {
                            ->get();
         $transactions = Transaction::where_between('date', $range['start'], $range['end'])
                                    ->where_account_id($account_id)
+                                   ->order_by('date', 'asc')
                                    ->get();
         if (isset($donations[0]) || isset($expenses[0])) {
             $last_transaction = Transaction::earlier_than($transactions[0])
@@ -143,6 +144,7 @@ class Accounts_Controller extends Base_Controller {
         $account->account_type = Input::get('account_type');
         $account->secretary = Input::get('secretary');
         $account->treasurer = Input::get('treasurer');
+        $account->announcement = Input::get('announcement');
         $account->save();
 
         return Redirect::to_action('accounts@index');
